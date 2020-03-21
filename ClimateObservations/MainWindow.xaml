@@ -7,6 +7,12 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-
+        <Label Content="Vad vill du göra?" FontSize="28" FontStyle="Italic" HorizontalAlignment="Center" Margin="0,93,0,0" VerticalAlignment="Top" Height="54" Width="220"/>
+        <Label Content="Välkommen" FontSize="33" HorizontalAlignment="Center" Margin="0,39,0,0" VerticalAlignment="Top" Height="54" Width="182"/>
+        <Button x:Name="btnManageObservers" Content="Hantera observatörer" HorizontalAlignment="Left" Margin="150,225,0,0" VerticalAlignment="Top" Height="34" Width="190" Click="BtnManageObservers_Click"/>
+        <Button x:Name="btnLogUserIn" Content="Logga in mig" HorizontalAlignment="Left" Margin="510,259,0,0" VerticalAlignment="Top" Height="33" Width="193"/>
+        <Label Content="Gå in i administrationsläget" FontSize="25" HorizontalAlignment="Left" Margin="89,177,0,0" VerticalAlignment="Top"/>
+        <Label Content="Gå in i min profil" FontSize="25" HorizontalAlignment="Left" Margin="510,177,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="cbxObservers" HorizontalAlignment="Left" Margin="510,220,0,0" VerticalAlignment="Top" Width="193" Height="34"/>
     </Grid>
 </Window>

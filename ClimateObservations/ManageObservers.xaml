@@ -1,0 +1,25 @@
+﻿<Window x:Class="ClimateObservations.ManageObservers"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ClimateObservations"
+        mc:Ignorable="d"
+        Title="ManageObservers" Height="450" Width="800">
+    <Grid>
+        <Label Content="Administrationsläget" FontSize="33" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Height="54" Width="308"/>
+        <Button x:Name="btnUpdateObservers" Content="Uppdatera listan" HorizontalAlignment="Center" Margin="0,366,0,0" VerticalAlignment="Top" Height="34" Width="260"/>
+        <Button x:Name="btnAddObserver" Content="Lägg till" HorizontalAlignment="Left" Margin="11,302,0,0" VerticalAlignment="Top" Height="33" Width="194"/>
+        <Label Content="Befintliga observatörer" FontSize="25" HorizontalAlignment="Center" Margin="0,115,0,0" VerticalAlignment="Top"/>
+        <Label Content="Lägg till observatör" FontSize="25" HorizontalAlignment="Left" Margin="10,115,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="cbxObservers" HorizontalAlignment="Left" Margin="588,163,0,0" VerticalAlignment="Top" Width="193" Height="34"/>
+        <ListBox x:Name="lbxObservers"  Margin="270,158,270,99"/>
+        <Label Content="Ta bort observatör" FontSize="25" HorizontalAlignment="Left" Margin="579,115,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnDeleteObserver" Content="Ta bort" HorizontalAlignment="Left" Margin="588,208,0,0" VerticalAlignment="Top" Height="36" Width="193"/>
+        <TextBox x:Name="txtFirstname" HorizontalAlignment="Left" Margin="10,184,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="193" Height="35"/>
+        <TextBox x:Name="txtLastname" HorizontalAlignment="Left" Margin="11,253,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="192" Height="35"/>
+        <Label Content="Förnamn" HorizontalAlignment="Left" Margin="10,158,0,0" VerticalAlignment="Top"/>
+        <Label Content="Efternamn" HorizontalAlignment="Left" Margin="10,224,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblLastUpdated" Content="Senast uppdaterad" HorizontalAlignment="Center" Margin="0,335,0,0" VerticalAlignment="Top" Width="260"/>
+    </Grid>
+</Window>

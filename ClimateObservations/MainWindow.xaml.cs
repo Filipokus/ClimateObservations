@@ -24,5 +24,11 @@ namespace ClimateObservations
         {
             InitializeComponent();
         }
+        private void BtnManageObservers_Click(object sender, RoutedEventArgs e) 
+        {
+            ManageObservers objManageObservers = new ManageObservers();
+            this.Visibility = Visibility.Hidden;
+            objManageObservers.Show();
+        }
     }
 }
