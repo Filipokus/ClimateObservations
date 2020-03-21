@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ClimateObservations.Models
 {
-    class Observer
+    public class Observer
     {
         public int Id { get; set; }
         public string Firstname { get; set; }
