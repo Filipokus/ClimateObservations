@@ -7,7 +7,7 @@ using System.Text;
 
 namespace ClimateObservations.Repositories
 {
-    class ObserverRepository
+    public class ObserverRepository
     {
         private static string connectionString = ConfigurationManager.ConnectionStrings["dbLocal"].ConnectionString;
         #region CREATE
@@ -40,6 +40,34 @@ namespace ClimateObservations.Repositories
                     }
                 }
                 return observer;
+            }
+        }
+        public static IEnumerable<Observer> GetObservers()
+        {
+            string statement = "select id, firstname, lastname from observer";
+            using (var connection = new NpgsqlConnection(connectionString))
+            {
+                Observer observer = null;
+                List<Observer> observers = new List<Observer>();
+                connection.Open();
+                using (var command = new NpgsqlCommand(statement, connection))
+                {
+                    using (var reader = command.ExecuteReader())
+                    {
+
+                        while (reader.Read())
+                        {
+                            observer = new Observer
+                            {
+                                Id = (int)reader["id"],
+                                Firstname = (string)reader["firstname"],
+                                Lastname = (string)reader["lastname"],
+                            };
+                            observers.Add(observer);
+                        }
+                    }
+                }
+                return observers;
             }
         }
         #endregion

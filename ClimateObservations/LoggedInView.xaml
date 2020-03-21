@@ -1,0 +1,35 @@
+﻿<Window x:Class="ClimateObservations.LoggedInView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ClimateObservations"
+        mc:Ignorable="d"
+        Title="LoggedInView" Height="450" Width="800">
+    <Grid>
+        <Label x:Name="lblObserver"  Content="Välkommen, Förnamn Efternamn!" FontSize="33" HorizontalAlignment="Center" Margin="0,39,0,0" VerticalAlignment="Top" Height="54" Width="500"/>
+        <Button x:Name="btnAddObservation" Content="Lägg till observationen" HorizontalAlignment="Left" Margin="16,316,0,0" VerticalAlignment="Top" Height="34" Width="234"/>
+        <Button x:Name="btnUpdateObservation" Content="Spara ändringar" HorizontalAlignment="Left" Margin="568,315,0,0" VerticalAlignment="Top" Height="33" Width="193"/>
+        <Label Content="Ny klimatobservation" FontSize="25" HorizontalAlignment="Left" Margin="10,98,0,0" VerticalAlignment="Top"/>
+        <Label Content="Mina observationer" FontSize="25" HorizontalAlignment="Left" Margin="286,98,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="cbxObservations" HorizontalAlignment="Left" Margin="568,176,0,0" VerticalAlignment="Top" Width="81" Height="34"/>
+        <Label Content="Ändra observation" FontSize="25" HorizontalAlignment="Left" Margin="566,98,0,0" VerticalAlignment="Top"/>
+        <ListBox x:Name="lbxObservations" Margin="288,141,288,84"/>
+        <Button x:Name="btnUpdateObservationsView" HorizontalAlignment="Center" Content="Uppdatera listan" Margin="0,375,0,0" VerticalAlignment="Top" Height="33" Width="222"/>
+        <Label x:Name="lblLastUpdated" Content="Senast uppdaterad" HorizontalAlignment="Center" VerticalAlignment="Top" Width="223" Margin="0,350,0,0"/>
+        <TextBox x:Name="txtNewMeasurement"  HorizontalAlignment="Left" Margin="13,206,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="69" Height="33"/>
+        <ComboBox Name="cbxNewCategory" HorizontalAlignment="Left" Margin="12,163,0,0" VerticalAlignment="Top" Width="236" Height="33"/>
+        <Label x:Name="lblNewUnit"  Content="°C / cm" HorizontalAlignment="Left" Margin="87,206,0,0" VerticalAlignment="Top" Height="32" Width="161"/>
+        <ComboBox Name="cbxLocation"  HorizontalAlignment="Left" Margin="14,270,0,0" VerticalAlignment="Top" Width="236" Height="33"/>
+        <Label Content="Vad observerades?" HorizontalAlignment="Left" Margin="10,137,0,0" VerticalAlignment="Top"/>
+        <Label Content="Vart gjordes denna observaton?" HorizontalAlignment="Left" Margin="12,239,0,0" VerticalAlignment="Top"/>
+        <Label Content="Vilken observation ska ändras?" HorizontalAlignment="Left" Margin="566,132,0,0" VerticalAlignment="Top" Width="224"/>
+        <TextBox x:Name="txtMeasurement"  HorizontalAlignment="Left" Margin="568,216,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="82" Height="33"/>
+        <Label x:Name="lblUnit"  Content="°C / cm" HorizontalAlignment="Left" Margin="655,216,0,0" VerticalAlignment="Top" Height="32" Width="119"/>
+        <ComboBox x:Name="cbxObservationCategory" HorizontalAlignment="Left" Margin="654,176,0,0" VerticalAlignment="Top" Width="136" Height="34"/>
+        <ComboBox x:Name="cbxChangeCategory" HorizontalAlignment="Left" Margin="568,276,0,0" VerticalAlignment="Top" Width="222" Height="34"/>
+        <Label Content="Underkategori" HorizontalAlignment="Left" Margin="568,249,0,0" VerticalAlignment="Top" Width="222"/>
+        <Label Content="Datum" HorizontalAlignment="Left" Margin="568,151,0,0" VerticalAlignment="Top" Width="53" Height="25"/>
+        <Label Content="Mätpunkt" HorizontalAlignment="Left" Margin="654,151,0,0" VerticalAlignment="Top" Width="83" Height="25"/>
+    </Grid>
+</Window>

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ClimateObservations.Models;
+using ClimateObservations.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,12 +25,30 @@ namespace ClimateObservations
         public MainWindow()
         {
             InitializeComponent();
+            cbxObservers.ItemsSource = null;
+            cbxObservers.ItemsSource = ObserverRepository.GetObservers();
         }
         private void BtnManageObservers_Click(object sender, RoutedEventArgs e) 
         {
             ManageObservers objManageObservers = new ManageObservers();
             this.Visibility = Visibility.Hidden;
             objManageObservers.Show();
+        }
+
+        private void BtnLogUserIn_Click(object sender, RoutedEventArgs e)
+        {
+            if (cbxObservers.SelectedItem!=null)
+            {
+                Observer observer = new Observer();
+                observer = (Observer)cbxObservers.SelectedItem;
+                LoggedInView objLoggedInView = new LoggedInView(observer);
+                this.Visibility = Visibility.Hidden;
+                objLoggedInView.Show();
+            }
+            else
+            {
+                MessageBox.Show("Välj vilken observatör du vill logga in på först!");
+            }
         }
     }
 }
