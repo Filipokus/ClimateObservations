@@ -31,5 +31,6 @@
         <Label Content="Underkategori" HorizontalAlignment="Left" Margin="568,249,0,0" VerticalAlignment="Top" Width="222"/>
         <Label Content="Datum" HorizontalAlignment="Left" Margin="568,151,0,0" VerticalAlignment="Top" Width="53" Height="25"/>
         <Label Content="Mätpunkt" HorizontalAlignment="Left" Margin="654,151,0,0" VerticalAlignment="Top" Width="83" Height="25"/>
+        <Button x:Name="btnBack"  Content="Tillbaka" HorizontalAlignment="Left" Margin="3,3,0,0" VerticalAlignment="Top" Width="105" Height="32" Click="BtnBack_Click"/>
     </Grid>
 </Window>
