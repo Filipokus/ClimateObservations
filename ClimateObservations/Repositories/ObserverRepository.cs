@@ -69,7 +69,6 @@ namespace ClimateObservations.Repositories
                 {
                     using (var reader = command.ExecuteReader())
                     {
-
                         while (reader.Read())
                         {
                             observer = new Observer
