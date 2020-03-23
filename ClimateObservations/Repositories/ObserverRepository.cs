@@ -92,20 +92,27 @@ namespace ClimateObservations.Repositories
         public static void DeleteObserver(int id)
         {
             string stmt = "DELETE FROM observer WHERE id = @id";
-            using (var conn = new NpgsqlConnection(connectionString))
+            using (var connection = new NpgsqlConnection(connectionString))
             {
-                using (var command = new NpgsqlCommand(stmt, conn))
+                connection.Open();
+                using (var transaction = connection.BeginTransaction())
                 {
-                    conn.Open();
-                    command.Parameters.AddWithValue("id", id);
-                    command.ExecuteScalar();
+                    try
+                    {
+                        using (var command = new NpgsqlCommand(stmt, connection))
+                        {
+                            command.Parameters.AddWithValue("id", id);
+                            command.ExecuteScalar();
+                        }
+                        transaction.Commit();
+                    }
+                    catch (PostgresException)
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
                 }
             }
-        }
-
-        public static void Delete(object poco)
-        {
-
         }
         #endregion
     }
