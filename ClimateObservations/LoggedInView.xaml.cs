@@ -22,17 +22,20 @@ namespace ClimateObservations
     /// </summary>
     public partial class LoggedInView : Window
     {
+        Observer selectedobserver;
         public LoggedInView(Observer observer)
         {
             InitializeComponent();
-            lblLastUpdated.Content = null;
-            lblLastUpdated.Content = $"Senast uppdaterad {DateTime.Now}";
             lblObserver.Content = null;
             lblObserver.Content = $"Välkommen, {observer.Firstname} {observer.Lastname}!";
-
+            lbxObservations.ItemsSource = null;
+            lbxObservations.ItemsSource = GetObservationsWithDetails(observer.Id);
+            lblLastUpdated.Content = null;
+            lblLastUpdated.Content = $"Senast uppdaterad {DateTime.Now}";
+            selectedobserver = observer;
             FillCbx();
         }
-        private void btnAddObservation_Click(object sender, RoutedEventArgs e)
+        private void BtnAddObservation_Click(object sender, RoutedEventArgs e)
         {
 
         }
@@ -49,7 +52,7 @@ namespace ClimateObservations
 
 
 
-        private void btnUpdateObservation_Click(object sender, RoutedEventArgs e)
+        private void BtnUpdateObservation_Click(object sender, RoutedEventArgs e)
         {
 
         }
@@ -59,9 +62,12 @@ namespace ClimateObservations
 
         }
 
-        private void btnUpdateObservationsView_Click(object sender, RoutedEventArgs e)
+        private void BtnUpdateObservationsView_Click(object sender, RoutedEventArgs e)
         {
-
+            lbxObservations.ItemsSource = null;
+            lbxObservations.ItemsSource = GetObservationsWithDetails(selectedobserver.Id);
+            lblLastUpdated.Content = null;
+            lblLastUpdated.Content = $"Senast uppdaterad {DateTime.Now}";
         }
         private void BtnBack_Click(object sender, RoutedEventArgs e)
         {

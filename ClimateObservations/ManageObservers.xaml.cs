@@ -75,13 +75,25 @@ namespace ClimateObservations
                     int sqlstate = int.Parse(ex.SqlState);
                     if (sqlstate == 23503)
                     {
-                        message = $"{observer} kan inte tas bort från databasen då hen har registrerat en eller flera klimatobservationer. Felkod: {ex.SqlState}";
+                        message = $"{observer} kan inte tas bort från databasen då hen har registrerat en eller flera klimatobservationer. Vill du ta bort {observer} och hens observationer permanent?";
+                        string title = $"Felkod {sqlstate}";
+                        MessageBoxButton buttons = MessageBoxButton.YesNo;
+                        var result = MessageBox.Show(message, title, buttons);
+                        if (result == MessageBoxResult.Yes)
+                        {
+                            //Ta bort measurements
+                        }
+                        else
+                        {
+                            //Inget händer
+                        }
+                        
                     }
                     else
                     {
                         message = ex.MessageText;
+                        MessageBox.Show(message);
                     }
-                    MessageBox.Show(message);
                 }
                 UpdateUI();
             }

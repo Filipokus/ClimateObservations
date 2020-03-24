@@ -8,14 +8,14 @@
         Title="LoggedInView" Height="450" Width="800">
     <Grid>
         <Label x:Name="lblObserver"  Content="Välkommen, Förnamn Efternamn!" FontSize="33" HorizontalAlignment="Center" Margin="0,39,0,0" VerticalAlignment="Top" Height="54" Width="500"/>
-        <Button x:Name="btnAddObservation" Content="Lägg till observationen" HorizontalAlignment="Left" Margin="16,375,0,0" VerticalAlignment="Top" Height="34" Width="234" Click="btnAddObservation_Click"/>
-        <Button x:Name="btnUpdateObservation" Content="Spara ändringar" HorizontalAlignment="Left" Margin="568,315,0,0" VerticalAlignment="Top" Height="33" Width="193" Click="btnUpdateObservation_Click"/>
+        <Button x:Name="btnAddObservation" Content="Lägg till observationen" HorizontalAlignment="Left" Margin="16,375,0,0" VerticalAlignment="Top" Height="34" Width="234" Click="BtnAddObservation_Click"/>
+        <Button x:Name="btnUpdateObservation" Content="Spara ändringar" HorizontalAlignment="Left" Margin="568,315,0,0" VerticalAlignment="Top" Height="33" Width="193" Click="BtnUpdateObservation_Click"/>
         <Label Content="Ny klimatobservation" FontSize="25" HorizontalAlignment="Left" Margin="10,98,0,0" VerticalAlignment="Top"/>
         <Label Content="Mina observationer" FontSize="25" HorizontalAlignment="Left" Margin="286,98,0,0" VerticalAlignment="Top"/>
         <ComboBox x:Name="cbxObservations" HorizontalAlignment="Left" Margin="568,176,0,0" VerticalAlignment="Top" Width="81" Height="34"/>
         <Label Content="Ändra observation" FontSize="25" HorizontalAlignment="Left" Margin="566,98,0,0" VerticalAlignment="Top"/>
         <ListBox x:Name="lbxObservations" Margin="288,141,288,84"/>
-        <Button x:Name="btnUpdateObservationsView" HorizontalAlignment="Center" Content="Uppdatera listan" Margin="0,375,0,0" VerticalAlignment="Top" Height="33" Width="222" Click="btnUpdateObservationsView_Click"/>
+        <Button x:Name="btnUpdateObservationsView" HorizontalAlignment="Center" Content="Uppdatera listan" Margin="0,375,0,0" VerticalAlignment="Top" Height="33" Width="222" Click="BtnUpdateObservationsView_Click"/>
         <Label x:Name="lblLastUpdated" Content="Senast uppdaterad" HorizontalAlignment="Center" VerticalAlignment="Top" Width="223" Margin="0,350,0,0"/>
         <TextBox x:Name="txtNewMeasurement"  HorizontalAlignment="Left" Margin="16,249,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="69" Height="33"/>
         <ComboBox Name="cbxNewCategory" HorizontalAlignment="Left" Margin="12,163,0,0" VerticalAlignment="Top" Width="236" Height="33"/>

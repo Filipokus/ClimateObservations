@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ClimateObservations.Models
 {
-    class Unit
+   public class Unit
     {
         public int Id { get; set; }
         public string Type { get; set; }
@@ -12,8 +12,8 @@ namespace ClimateObservations.Models
 
         public override string ToString()
         {
-            string category = $"{Abbreviation}";
-            return category;
+            string abbrevation = $"{Abbreviation}";
+            return abbrevation;
         }
     }
 }
