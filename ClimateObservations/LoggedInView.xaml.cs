@@ -57,5 +57,11 @@ namespace ClimateObservations
             lbxObservations.ItemsSource = null;
             lbxObservations.ItemsSource = GetObservations();
         }
+        private void BtnBack_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow objMainWindow = new MainWindow();
+            this.Visibility = Visibility.Hidden;
+            objMainWindow.Show();
+        }
     }
 }

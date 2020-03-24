@@ -1,5 +1,6 @@
 ﻿using ClimateObservations.Models;
 using ClimateObservations.Repositories;
+using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -61,9 +62,40 @@ namespace ClimateObservations
         private void BtnDeleteObserver_Click(object sender, RoutedEventArgs e)
         {
             Observer observer = (Observer)cbxObservers.SelectedItem;
-            ObserverRepository.DeleteObserver(observer.Id);
-            MessageBox.Show($"{observer} är nu borttagen");
-            UpdateUI();
+            if (observer != null)
+            {
+                try
+                {
+                    ObserverRepository.DeleteObserver(observer.Id);
+                    MessageBox.Show($"{observer} är nu borttagen");
+                }
+                catch (PostgresException ex)
+                {
+                    string message;
+                    int sqlstate = int.Parse(ex.SqlState);
+                    if (sqlstate == 23503)
+                    {
+                        message = $"{observer} kan inte tas bort från databasen då hen har registrerat en eller flera klimatobservationer. Felkod: {ex.SqlState}";
+                    }
+                    else
+                    {
+                        message = ex.MessageText;
+                    }
+                    MessageBox.Show(message);
+                }
+                UpdateUI();
+            }
+            else
+            {
+                MessageBox.Show("Välj en observatör först");
+            }
+        }
+
+        private void BtnBack_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow objMainWindow = new MainWindow();
+            this.Visibility = Visibility.Hidden;
+            objMainWindow.Show();
         }
     }
 }

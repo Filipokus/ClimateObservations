@@ -21,5 +21,6 @@
         <Label Content="Förnamn" HorizontalAlignment="Left" Margin="10,158,0,0" VerticalAlignment="Top"/>
         <Label Content="Efternamn" HorizontalAlignment="Left" Margin="10,224,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblLastUpdated" Content="Senast uppdaterad" HorizontalAlignment="Center" Margin="0,335,0,0" VerticalAlignment="Top" Width="260"/>
+        <Button x:Name="btnBack"  Content="Tillbaka" HorizontalAlignment="Left" Margin="3,3,0,0" VerticalAlignment="Top" Width="105" Height="32" Click="BtnBack_Click"/>
     </Grid>
 </Window>
