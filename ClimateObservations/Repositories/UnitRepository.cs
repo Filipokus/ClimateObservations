@@ -3,23 +3,22 @@ using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
 using System.Text;
 
 namespace ClimateObservations.Repositories
 {
-    class CategoryRepository
+    class UnitRepository
     {
         private static string connectionString = ConfigurationManager.ConnectionStrings["dbLocal"].ConnectionString;
 
-        public static IEnumerable<Category> GetCategories()
+        public static IEnumerable<Unit> GetUnits()
         {
-            string stmt = "select id, name, basecategory_id from category";
+            string stmt = "select id, type, abbreviation from unit";
 
             using (var conn = new NpgsqlConnection(connectionString))
             {
-                Category category = null;
-                List<Category> categories = new List<Category>();
+                Unit unit = null;
+                List<Unit> units = new List<Unit>();
                 conn.Open();
 
                 using (var command = new NpgsqlCommand(stmt, conn))
@@ -28,16 +27,17 @@ namespace ClimateObservations.Repositories
                     {
                         while (reader.Read())
                         {
-                            category = new Category
+                            unit = new Unit
                             {
                                 Id = (int)reader["id"],
-                                Name = (string)reader["name"],
+                                Type = (string)reader["type"],
+                                Abbreviation = (string)reader["abbreviation"],
                             };
-                            categories.Add(category);
+                            units.Add(unit);
                         }
                     }
                 }
-                return categories;
+                return units;
             }
         }
     }

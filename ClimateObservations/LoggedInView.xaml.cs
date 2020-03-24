@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using static ClimateObservations.Repositories.ObservationRepository;
 using static ClimateObservations.Repositories.CategoryRepository;
+using static ClimateObservations.Repositories.UnitRepository;
 
 namespace ClimateObservations
 {
@@ -29,22 +30,28 @@ namespace ClimateObservations
             lblObserver.Content = null;
             lblObserver.Content = $"Välkommen, {observer.Firstname} {observer.Lastname}!";
 
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
+            FillCbx();
         }
         private void btnAddObservation_Click(object sender, RoutedEventArgs e)
         {
 
-            UpdateUI();
         }
+
+        public void FillCbx()
+        {
+            cbxNewCategory.ItemsSource = null;
+            cbxNewCategory.ItemsSource = GetCategories();
+            cbxUnits.ItemsSource = null;
+            cbxUnits.ItemsSource = GetUnits();
+            cbxUnitsTwo.ItemsSource = null;
+            cbxUnitsTwo.ItemsSource = GetUnits();
+        }
+
+
 
         private void btnUpdateObservation_Click(object sender, RoutedEventArgs e)
         {
 
-
-            UpdateUI();
         }
 
         public void UpdateUI()
@@ -54,8 +61,7 @@ namespace ClimateObservations
 
         private void btnUpdateObservationsView_Click(object sender, RoutedEventArgs e)
         {
-            lbxObservations.ItemsSource = null;
-            lbxObservations.ItemsSource = GetObservations();
+
         }
         private void BtnBack_Click(object sender, RoutedEventArgs e)
         {

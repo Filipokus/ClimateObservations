@@ -14,11 +14,7 @@ namespace ClimateObservations.Repositories
 
         #region CREATE
 
-        public static int AddObservation(Observation observation)
-        {
-            string stmt = "INSERT INTO ";
-            
-        }
+
 
         #endregion
 
@@ -49,18 +45,19 @@ namespace ClimateObservations.Repositories
                 return null;
             }
         }
-        public static IEnumerable<Observation> GetObservations()
+        public static IEnumerable<Observation> GetObservations(int id)
         {
-            string stmt = "select id, date from observation";
+            string stmt = "select id, date from observation where observer_id=@id";
 
             using (var conn = new NpgsqlConnection(connectionString))
             {
-                Observation observation;
+                Observation observation = null;
                 List<Observation> observations = new List<Observation>();
                 conn.Open();
 
                 using (var command = new NpgsqlCommand(stmt, conn))
                 {
+                    command.Parameters.AddWithValue("id", id);
                     using (var reader = command.ExecuteReader())
                     {
                         while (reader.Read())
