@@ -46,8 +46,6 @@ namespace ClimateObservations
             cbxNewCategory.ItemsSource = GetCategories();
             cbxUnits.ItemsSource = null;
             cbxUnits.ItemsSource = GetUnits();
-            cbxUnitsTwo.ItemsSource = null;
-            cbxUnitsTwo.ItemsSource = GetUnits();
         }
 
 
@@ -74,6 +72,13 @@ namespace ClimateObservations
             MainWindow objMainWindow = new MainWindow();
             this.Visibility = Visibility.Hidden;
             objMainWindow.Show();
+        }
+
+        private void cbxNewCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Category selectedcategory = (Category)cbxNewCategory.SelectedItem;
+            lblUnit.Content = null;
+            lblUnit.Content = GetRelevantUnit(selectedcategory.Id);
         }
     }
 }

@@ -40,5 +40,35 @@ namespace ClimateObservations.Repositories
                 return units;
             }
         }
+        public static Unit GetRelevantUnit(int id)
+        {
+            string statement = "SELECT unit.id, unit.type, unit.abbreviation FROM category INNER JOIN unit ON category.unit_id = unit.id WHERE category.id=@id";
+            using (var connection = new NpgsqlConnection(connectionString))
+            {
+                Unit unit = null;
+                connection.Open();
+                using (var command = new NpgsqlCommand(statement, connection))
+                {
+                    command.Parameters.AddWithValue("id", id);
+
+                    using (var reader = command.ExecuteReader())
+                    {
+
+                        while (reader.Read())
+                        {
+                            unit = new Unit
+                            {
+                                Id = (int)reader["id"],
+                                Type = (string)reader["type"],
+                                Abbreviation = (string)reader["abbreviation"],
+                            };
+                        }
+                    }
+                }
+                return unit;
+
+            }
+        }
     }
 }
+
