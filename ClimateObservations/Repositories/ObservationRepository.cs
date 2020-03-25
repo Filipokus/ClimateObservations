@@ -13,11 +13,28 @@ namespace ClimateObservations.Repositories
         private static string connectionString = ConfigurationManager.ConnectionStrings["dbLocal"].ConnectionString;
 
         #region CREATE
-
-
-
+        public static int AddObservation(DateTime date, int observer_id, int geolocation_id)
+        {
+            string statement = "insert into observation(date, observer_id, geolocation_id) values(@date,@observer_id,@geolocation_id) returning id";
+            using (var connection = new NpgsqlConnection(connectionString))
+            {
+                connection.Open();
+                using (var command = new NpgsqlCommand(statement, connection))
+                {
+                    int observationid = ObservationExists(date, geolocation_id, observer_id);
+                    if (observationid != -1)
+                    {
+                        return observationid;
+                    }
+                    command.Parameters.AddWithValue("date", date);
+                    command.Parameters.AddWithValue("observer_id", observer_id);
+                    command.Parameters.AddWithValue("geolocation_id", geolocation_id);
+                    int id = (int)command.ExecuteScalar();
+                    return id;
+                }
+            }
+        }
         #endregion
-
         #region READ
         public static Observation GetObservation(int id)
         {
@@ -25,7 +42,7 @@ namespace ClimateObservations.Repositories
 
             using (var conn = new NpgsqlConnection(connectionString))
             {
-                Observation observation;
+                Observation observation = null;
                 conn.Open();
                 using(var command = new NpgsqlCommand(stmt, conn))
                 {
@@ -42,7 +59,38 @@ namespace ClimateObservations.Repositories
                         }
                     }
                 }
-                return null;
+                return observation;
+            }
+        }
+        public static int ObservationExists(DateTime date, int geolocation_id, int observer_id)
+        {
+            string stmt = "select id from observation where date=@date AND geolocation_id=@geolocation_id AND observer_id=@observer_id";
+
+            using (var conn = new NpgsqlConnection(connectionString))
+            {
+                Observation observation = null;
+                conn.Open();
+                using (var command = new NpgsqlCommand(stmt, conn))
+                {
+                    command.Parameters.AddWithValue("date", date);
+                    command.Parameters.AddWithValue("geolocation_id", geolocation_id);
+                    command.Parameters.AddWithValue("observer_id", observer_id);
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            observation = new Observation
+                            {
+                                Id=(int)reader["id"],
+                            };
+                        }
+                    }
+                }
+                if (observation != null)
+                {
+                    return observation.Id;
+                }
+                return -1;
             }
         }
         public static IEnumerable<Observation> GetObservations(int id)
@@ -127,23 +175,8 @@ namespace ClimateObservations.Repositories
         #region UPDATE
         public static void UpdateObservation(Observation observation)
         {
-            string stmt = "select id, date from observation where observer_id=@id";
 
-            using (var conn = new NpgsqlConnection(connectionString))
-            {
-                using (var command = new NpgsqlCommand())
-                {
-                    conn.Open();
-                }
-
-            }
         }
-
-
-
-
-
-
         #endregion
         #region DELETE
         #endregion
