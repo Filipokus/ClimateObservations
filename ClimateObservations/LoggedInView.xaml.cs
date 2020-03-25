@@ -52,24 +52,43 @@ namespace ClimateObservations
         }
         private void BtnAddObservation_Click(object sender, RoutedEventArgs e)
         {
-            Category selectedcategory = (Category)cbxNewCategory.SelectedItem;
-            int category_id = selectedcategory.Id;
-            Area area = (Area)cbxLocation.SelectedItem;
-            int geolocation_id = AddGeolocation(area.Id);
-            int value;
-            if (int.TryParse(txtNewMeasurement.Text, out value))
+            if (cbxSubCategory.SelectedItem != null)
             {
-                AddMeasurement(selectedobserver.Id, geolocation_id, value, category_id);
+                Category selectedcategory = (Category)cbxNewCategory.SelectedItem;
+                int category_id = selectedcategory.Id;
+                Area area = (Area)cbxLocation.SelectedItem;
+                int geolocation_id = AddGeolocation(area.Id);
+                int value;
+                if (int.TryParse(txtNewMeasurement.Text, out value))
+                {
+                    AddMeasurement(selectedobserver.Id, geolocation_id, value, category_id);
+                }
+                else
+                {
+                    MessageBox.Show("Inmatningen ska vara ett heltal.");
+                }
             }
             else
             {
-                MessageBox.Show("Inmatningen ska vara ett heltal.");
+                Category selectedcategory = (Category)cbxSubCategory.SelectedItem;
+                int category_id = selectedcategory.Id;
+                Area area = (Area)cbxLocation.SelectedItem;
+                int geolocation_id = AddGeolocation(area.Id);
+                int value;
+                if (int.TryParse(txtNewMeasurement.Text, out value))
+                {
+                    AddMeasurement(selectedobserver.Id, geolocation_id, value, category_id);
+                }
+                else
+                {
+                    MessageBox.Show("Inmatningen ska vara ett heltal.");
+                }
             }
         }
         public void FillCbx()
         {
             cbxNewCategory.ItemsSource = null;
-            cbxNewCategory.ItemsSource = GetCategories();
+            cbxNewCategory.ItemsSource = GetParentCategories();
             cbxLocation.ItemsSource = null;
             cbxLocation.ItemsSource = GetAreas();
         }
@@ -99,6 +118,8 @@ namespace ClimateObservations
             Category selectedcategory = (Category)cbxNewCategory.SelectedItem;
             lblUnit.Content = null;
             lblUnit.Content = GetRelevantUnit(selectedcategory.Id);
+            cbxSubCategory.ItemsSource = null;
+            cbxSubCategory.ItemsSource = GetChildCategories(selectedcategory.Id);
         }
         private void BtnShowMsrmt_Click(object sender, RoutedEventArgs e)
         {
@@ -137,5 +158,6 @@ namespace ClimateObservations
         {
             string textBoxValue = lblNewValue.Text;
         }
+
     }
 }

@@ -179,6 +179,31 @@ namespace ClimateObservations.Repositories
         }
         #endregion
         #region DELETE
+        public static void DeleteObservations(int observer_id)
+        {
+            string stmt = "DELETE FROM observations WHERE observer_id = @observer_id";
+            using (var connection = new NpgsqlConnection(connectionString))
+            {
+                connection.Open();
+                using (var transaction = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        using (var command = new NpgsqlCommand(stmt, connection))
+                        {
+                            command.Parameters.AddWithValue("observer_id", observer_id);
+                            command.ExecuteScalar();
+                        }
+                        transaction.Commit();
+                    }
+                    catch (PostgresException)
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+            }
+        }
         #endregion
     }
 }
