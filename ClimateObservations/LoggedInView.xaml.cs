@@ -49,6 +49,7 @@ namespace ClimateObservations
 
             ChangeObservation();
             FillCbx();
+            UpdateUI();
         }
         private void BtnAddObservation_Click(object sender, RoutedEventArgs e)
         {
@@ -98,7 +99,9 @@ namespace ClimateObservations
         }
         public void UpdateUI()
         {
-
+            cbxNewCategory.SelectedIndex = 0;
+            cbxSubCategory.SelectedIndex = 0;
+            cbxLocation.SelectedIndex = 0;
         }
         private void BtnUpdateObservationsView_Click(object sender, RoutedEventArgs e)
         {
@@ -120,6 +123,7 @@ namespace ClimateObservations
             lblUnit.Content = GetRelevantUnit(selectedcategory.Id);
             cbxSubCategory.ItemsSource = null;
             cbxSubCategory.ItemsSource = GetChildCategories(selectedcategory.Id);
+            cbxSubCategory.SelectedIndex = 0;
         }
         private void BtnShowMsrmt_Click(object sender, RoutedEventArgs e)
         {

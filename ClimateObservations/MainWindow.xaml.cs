@@ -27,6 +27,7 @@ namespace ClimateObservations
             InitializeComponent();
             cbxObservers.ItemsSource = null;
             cbxObservers.ItemsSource = ObserverRepository.GetObservers();
+            cbxObservers.SelectedIndex = 0;
         }
         private void BtnManageObservers_Click(object sender, RoutedEventArgs e) 
         {
