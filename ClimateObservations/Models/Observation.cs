@@ -25,7 +25,14 @@ namespace ClimateObservations.Models
             }
             foreach (var c in Categories)
             {
-                categories.Add(c.Name);
+                if (c.BaseCategoryId != 5)
+                {
+                    categories.Add(c.Name);
+                }
+                else
+                {
+                    categories.Add("Fjällripa");
+                }
             }
             string areasString = string.Join(",", areas.ToArray());
             string categoriesString = string.Join(", ", categories.ToArray());

@@ -249,6 +249,39 @@ namespace ClimateObservations.Repositories
                 }
             }
         }
+        public static int UpdateObservation(int id, double value, int category_id)
+        {
+            string statement = "UPDATE measurement SET value = @value, category_id = @category_id WHERE id=@id RETURNING id";
+
+            using (var connection = new NpgsqlConnection(connectionString))
+            {
+                using (var command = new NpgsqlCommand(statement, connection))
+                {
+                    connection.Open();
+                    command.Parameters.AddWithValue("value", value);
+                    command.Parameters.AddWithValue("category_id", category_id);
+                    command.Parameters.AddWithValue("id", id);
+                    int returningid = (int)command.ExecuteScalar();
+                    return returningid;
+                }
+            }
+        }
+        public static int UpdateObservation(int id, int category_id)
+        {
+            string statement = "UPDATE measurement SET category_id = @category_id WHERE id=@id RETURNING id";
+
+            using (var connection = new NpgsqlConnection(connectionString))
+            {
+                using (var command = new NpgsqlCommand(statement, connection))
+                {
+                    connection.Open();
+                    command.Parameters.AddWithValue("category_id", category_id);
+                    command.Parameters.AddWithValue("id", id);
+                    int returningid = (int)command.ExecuteScalar();
+                    return returningid;
+                }
+            }
+        }
         #endregion
         #region DELETE
         public static void DeleteObservations(int observer_id)

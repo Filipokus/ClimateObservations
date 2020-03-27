@@ -22,19 +22,22 @@
         <Label Content="Vad observerades?" HorizontalAlignment="Left" Margin="10,137,0,0" VerticalAlignment="Top"/>
         <Label Content="Vart gjordes denna observaton?" HorizontalAlignment="Left" Margin="16,295,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblDateTxt" Content="Datum" HorizontalAlignment="Left" Margin="568,141,0,0" VerticalAlignment="Top" Width="53" Height="25"/>
-        <Label x:Name="lblMsrmtTxt" Content="Välj mätpunkt" HorizontalAlignment="Left" Margin="569,205,0,0" VerticalAlignment="Top" Width="84" Height="29"/>
+        <Label x:Name="lblMsrmtTxt" Content="Välj mätpunkt" HorizontalAlignment="Left" Margin="576,193,0,0" VerticalAlignment="Top" Width="84" Height="29"/>
         <Button x:Name="btnBack"  Content="Tillbaka" HorizontalAlignment="Left" Margin="3,3,0,0" VerticalAlignment="Top" Width="105" Height="32" Click="BtnBack_Click"/>
         <ComboBox x:Name="cbxSubCategory" HorizontalAlignment="Left" Margin="12,0,0,0" VerticalAlignment="Center" Width="153" Height="33"/>
         <Label x:Name="lblUnit" FontSize="14" Content="°C / cm" HorizontalAlignment="Left" Margin="85,248,0,0" VerticalAlignment="Top" Height="34" Width="58"/>
         <Label x:Name="lblDate" Content="" HorizontalAlignment="Left" Margin="568,161,0,0" VerticalAlignment="Top" Width="113" RenderTransformOrigin="-0.3,2.428"/>
         <Button x:Name="btnUpdateObservation" Content="Ändra" HorizontalAlignment="Left" Margin="510,100,0,0" VerticalAlignment="Top" Click="BtnUpdateObservation_Click"/>
-        <ComboBox x:Name="cbxMeasurements" HorizontalAlignment="Left" Margin="574,228,0,0" VerticalAlignment="Top" Width="110" Height="33"/>
+        <ComboBox x:Name="cbxMeasurements" HorizontalAlignment="Left" Margin="574,222,0,0" VerticalAlignment="Top" Width="110" Height="33"/>
         <Label x:Name="lblAreaTxt" Content="Område" HorizontalAlignment="Left" Margin="662,141,0,0" VerticalAlignment="Top" Width="54" Height="25"/>
         <Label x:Name="lblArea" Content="" HorizontalAlignment="Left" Margin="662,161,0,0" VerticalAlignment="Top" Width="118" RenderTransformOrigin="-0.3,2.428"/>
-        <Button x:Name="btnShowMsrmt" Content="Visa" HorizontalAlignment="Left" Margin="690,228,0,0" VerticalAlignment="Top" Height="33" Width="62" Click="BtnShowMsrmt_Click"/>
-        <Label x:Name="lblCurrValueTxt" Content="Nuvarande: " HorizontalAlignment="Left" Margin="576,277,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblNewValueTxt" Content="Ange nytt värde: " HorizontalAlignment="Left" Margin="576,308,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblCurrValue" Content="" HorizontalAlignment="Left" Margin="652,277,0,0" VerticalAlignment="Top" Width="84"/>
-        <TextBox x:Name="txtNewValue" HorizontalAlignment="Left" Margin="676,308,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Height="30" />
+        <Button x:Name="btnShowMsrmt" Content="Visa" HorizontalAlignment="Left" Margin="690,222,0,0" VerticalAlignment="Top" Height="33" Width="62" Click="BtnShowMsrmt_Click"/>
+        <Label x:Name="lblCurrValueTxt" Content="Nuvarande: " HorizontalAlignment="Left" Margin="576,264,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblNewValueTxt" Content="Ange nytt värde: " HorizontalAlignment="Left" Margin="576,294,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblCurrValue" Content="" HorizontalAlignment="Left" Margin="653,267,0,0" VerticalAlignment="Top" Width="51"/>
+        <TextBox x:Name="txtNewValue" HorizontalAlignment="Left" Margin="681,293,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Height="30" />
+        <Label x:Name="lblChildCategory" Content="Underkategori" HorizontalAlignment="Left" Margin="576,330,0,0" VerticalAlignment="Top" Width="86" Height="29" Visibility="Hidden"/>
+        <ComboBox x:Name="cbxChildCategory" HorizontalAlignment="Left" Margin="664,329,0,0" VerticalAlignment="Top" Width="110" Height="33" Visibility="Hidden"/>
+        <Label x:Name="lblCurrChildCategory" Content="" HorizontalAlignment="Left" Margin="704,267,0,0" VerticalAlignment="Top" Width="96"/>
     </Grid>
 </Window>

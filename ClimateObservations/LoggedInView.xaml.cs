@@ -96,6 +96,11 @@ namespace ClimateObservations
             lblAreaTxt.Visibility = Visibility.Hidden;
             cbxMeasurements.Visibility = Visibility.Hidden;
             btnShowMsrmt.Visibility = Visibility.Hidden;
+            cbxChildCategory.ItemsSource = null;
+            cbxChildCategory.Visibility = Visibility.Hidden;
+            lblChildCategory.Visibility = Visibility.Hidden;
+            lblCurrChildCategory.Visibility = Visibility.Hidden;
+            lblCurrChildCategory.Content = null;
             txtNewValue.Text = "";
             cbxNewCategory.SelectedIndex = 0;
             cbxSubCategory.SelectedIndex = 0;
@@ -135,6 +140,14 @@ namespace ClimateObservations
                 int i = cbxMeasurements.SelectedIndex;
                 selectedmeasurement = selectedobservation.Measurements[i];
                 lblCurrValue.Content = selectedmeasurement.Value;
+                if (cbxMeasurements.SelectedItem.ToString() == "Fjällripa")
+                {
+                    cbxChildCategory.ItemsSource = null;
+                    cbxChildCategory.ItemsSource = GetChildCategories(5);
+                    lblChildCategory.Visibility = Visibility.Visible;
+                    cbxChildCategory.Visibility = Visibility.Visible;
+                    lblCurrChildCategory.Visibility = Visibility.Visible;
+                }
             }
         }
         private void BtnUpdateObservation_Click(object sender, RoutedEventArgs e)
@@ -149,7 +162,17 @@ namespace ClimateObservations
                 selectedobservation = (Observation)lbxObservations.Items[lbxObservations.SelectedIndex];
                 lblDate.Content = selectedobservation.Date;
                 lblArea.Content = selectedobservation.Areas[0].Name;
-                cbxMeasurements.ItemsSource = selectedobservation.Categories;
+                List<Category> categories = selectedobservation.Categories;
+                foreach (var c in categories)
+                {
+                    if (c.BaseCategoryId==5)
+                    {
+                        string currentchildcategory = c.ToString();
+                        lblCurrChildCategory.Content = currentchildcategory;
+                        c.Name = "Fjällripa";
+                    }
+                }
+                cbxMeasurements.ItemsSource = categories;
             }
             else
             {
@@ -162,16 +185,39 @@ namespace ClimateObservations
             double value;
             if (double.TryParse(measurementValue, out value))
             {
-                int id = selectedmeasurement.Id;
-                UpdateObservation(id, value);
-                MessageBox.Show($"Mätpunken lyckades ändras till {value}!");
-                UpdateUI();
+                if (double.TryParse(measurementValue, out value) && cbxChildCategory.Visibility == Visibility.Visible)
+                {
+                    int id = selectedmeasurement.Id;
+                    Category childcategory = (Category)cbxChildCategory.SelectedItem;
+                    int category_id = childcategory.Id;
+                    UpdateObservation(id, value, category_id);
+                    MessageBox.Show($"Mätpunken lyckades ändras till {value} och {childcategory.Name}!");
+                    UpdateUI();
+                }
+                else
+                {
+                    int id = selectedmeasurement.Id;
+                    UpdateObservation(id, value);
+                    MessageBox.Show($"Mätpunken lyckades ändras till {value}!");
+                    UpdateUI();
+                }
             }
             else
             {
-                MessageBox.Show("Fyll i ett heltal eller ett decimaltal. Tänk på att decimaltal skrivs med ett kommatecken (,)");
+                if (cbxChildCategory.Visibility == Visibility.Visible)
+                {
+                    int id = selectedmeasurement.Id;
+                    Category childcategory = (Category)cbxChildCategory.SelectedItem;
+                    int category_id = childcategory.Id;
+                    UpdateObservation(id, category_id);
+                    MessageBox.Show($"Mätpunken lyckades ändras till {childcategory.Name}!");
+                    UpdateUI();
+                }
+                else
+                {
+                    MessageBox.Show("Fyll i ett heltal eller ett decimaltal. Tänk på att decimaltal skrivs med ett kommatecken (,)");
+                }
             }
         }
-
     }
 }
