@@ -28,7 +28,7 @@ namespace ClimateObservations.Models
                 categories.Add(c.Name);
             }
             string areasString = string.Join(",", areas.ToArray());
-            string categoriesString = string.Join(",", categories.ToArray());
+            string categoriesString = string.Join(", ", categories.ToArray());
             string observation = $"{Date.ToString("dd/MM/yyyy")}";
             return $"{observation}, {areasString} - {categoriesString}";
         }

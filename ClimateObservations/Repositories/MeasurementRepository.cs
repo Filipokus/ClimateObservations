@@ -11,7 +11,7 @@ namespace ClimateObservations.Repositories
     {
         private static string connectionString = ConfigurationManager.ConnectionStrings["dbLocal"].ConnectionString;
         #region CREATE
-        public static int AddMeasurement(int observer_id, int geolocation_id, int value, int category_id)
+        public static int AddMeasurement(int observer_id, int geolocation_id, double value, int category_id)
         {
             DateTime date = DateTime.Today;
             int observation_id = AddObservation(date, observer_id, geolocation_id);

@@ -35,6 +35,6 @@
         <Label x:Name="lblCurrValueTxt" Content="Nuvarande: " HorizontalAlignment="Left" Margin="576,277,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblNewValueTxt" Content="Ange nytt värde: " HorizontalAlignment="Left" Margin="576,308,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblCurrValue" Content="" HorizontalAlignment="Left" Margin="652,277,0,0" VerticalAlignment="Top" Width="84"/>
-        <TextBox x:Name="lblNewValue" HorizontalAlignment="Left" Margin="676,308,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Height="30" />
+        <TextBox x:Name="txtNewValue" HorizontalAlignment="Left" Margin="676,308,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Height="30" />
     </Grid>
 </Window>

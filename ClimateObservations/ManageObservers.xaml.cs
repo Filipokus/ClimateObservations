@@ -12,6 +12,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static ClimateObservations.Repositories.ObserverRepository;
+using static ClimateObservations.Repositories.ObservationRepository;
 
 namespace ClimateObservations
 {
@@ -23,18 +25,14 @@ namespace ClimateObservations
         public ManageObservers()
         {
             InitializeComponent();
-            cbxObservers.ItemsSource = null;
-            cbxObservers.ItemsSource = ObserverRepository.GetObservers();
-            lbxObservers.ItemsSource = null;
-            lbxObservers.ItemsSource = ObserverRepository.GetObservers();
-            lblLastUpdated.Content = $"Senast uppdaterad {DateTime.Now}";
+            UpdateUI();
         }
         public void UpdateUI() 
         {
             cbxObservers.ItemsSource = null;
-            cbxObservers.ItemsSource = ObserverRepository.GetObservers();
+            cbxObservers.ItemsSource = GetObservers();
             lbxObservers.ItemsSource = null;
-            lbxObservers.ItemsSource = ObserverRepository.GetObservers();
+            lbxObservers.ItemsSource = GetObservers();
             lblLastUpdated.Content = $"Senast uppdaterad {DateTime.Now}";
         }
         private void BtnAddObserver_Click(object sender, RoutedEventArgs e)
@@ -43,22 +41,19 @@ namespace ClimateObservations
             {
                 string firstname = txtFirstname.Text;
                 string lastname = txtLastname.Text;
-                int observerId = ObserverRepository.AddObserver(firstname, lastname);
-                MessageBox.Show($"{ObserverRepository.GetObserver(observerId)} har lagts till i databasen (med ID {observerId}).");
+                int observerId = AddObserver(firstname, lastname);
+                MessageBox.Show($"{GetObserver(observerId)} har lagts till i databasen (med ID {observerId}).");
                 UpdateUI();
             }
             else
             {
                 MessageBox.Show("Alla observatörer måste ha ett förnamn och ett efternamn");
             }
-
         }
-
         private void BtnUpdateObservers_Click(object sender, RoutedEventArgs e)
         {
             UpdateUI();
         }
-
         private void BtnDeleteObserver_Click(object sender, RoutedEventArgs e)
         {
             Observer observer = (Observer)cbxObservers.SelectedItem;
@@ -66,7 +61,7 @@ namespace ClimateObservations
             {
                 try
                 {
-                    ObserverRepository.DeleteObserver(observer.Id);
+                    DeleteObserver(observer.Id);
                     MessageBox.Show($"{observer} är nu borttagen");
                 }
                 catch (PostgresException ex)
@@ -81,13 +76,9 @@ namespace ClimateObservations
                         var result = MessageBox.Show(message, title, buttons);
                         if (result == MessageBoxResult.Yes)
                         {
-                            //Ta bort measurements
+                            DeleteObservations(observer.Id);
+                            DeleteObserver(observer.Id);
                         }
-                        else
-                        {
-                            //Inget händer
-                        }
-                        
                     }
                     else
                     {
@@ -102,7 +93,6 @@ namespace ClimateObservations
                 MessageBox.Show("Välj en observatör först");
             }
         }
-
         private void BtnBack_Click(object sender, RoutedEventArgs e)
         {
             MainWindow objMainWindow = new MainWindow();

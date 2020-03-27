@@ -26,6 +26,8 @@ namespace ClimateObservations
     public partial class LoggedInView : Window
     {
         Observer selectedobserver;
+        Observation selectedobservation;
+        Measurement selectedmeasurement;
         public LoggedInView(Observer observer)
         {
             InitializeComponent();
@@ -36,18 +38,6 @@ namespace ClimateObservations
             lblLastUpdated.Content = null;
             lblLastUpdated.Content = $"Senast uppdaterad {DateTime.Now}";
             selectedobserver = observer;
-
-            lblCurrValue.Visibility = Visibility.Hidden;
-            lblCurrValueTxt.Visibility = Visibility.Hidden;
-            lblNewValueTxt.Visibility = Visibility.Hidden;
-            lblNewValue.Visibility = Visibility.Hidden;
-            lblMsrmtTxt.Visibility = Visibility.Hidden;
-            lblDateTxt.Visibility = Visibility.Hidden;
-            lblAreaTxt.Visibility = Visibility.Hidden;
-            cbxMeasurements.Visibility = Visibility.Hidden;
-            btnShowMsrmt.Visibility = Visibility.Hidden;
-
-            ChangeObservation();
             FillCbx();
             UpdateUI();
         }
@@ -55,34 +45,36 @@ namespace ClimateObservations
         {
             if (cbxSubCategory.SelectedItem != null)
             {
-                Category selectedcategory = (Category)cbxNewCategory.SelectedItem;
-                int category_id = selectedcategory.Id;
-                Area area = (Area)cbxLocation.SelectedItem;
-                int geolocation_id = AddGeolocation(area.Id);
-                int value;
-                if (int.TryParse(txtNewMeasurement.Text, out value))
-                {
-                    AddMeasurement(selectedobserver.Id, geolocation_id, value, category_id);
-                }
-                else
-                {
-                    MessageBox.Show("Inmatningen ska vara ett heltal.");
-                }
-            }
-            else
-            {
                 Category selectedcategory = (Category)cbxSubCategory.SelectedItem;
                 int category_id = selectedcategory.Id;
                 Area area = (Area)cbxLocation.SelectedItem;
                 int geolocation_id = AddGeolocation(area.Id);
-                int value;
-                if (int.TryParse(txtNewMeasurement.Text, out value))
+                double value;
+                if (double.TryParse(txtNewMeasurement.Text, out value))
                 {
                     AddMeasurement(selectedobserver.Id, geolocation_id, value, category_id);
+                    UpdateUI();
                 }
                 else
                 {
-                    MessageBox.Show("Inmatningen ska vara ett heltal.");
+                    MessageBox.Show("Inmatningen ska vara ett heltal eller decimaltal. Tänk på att decimaltal skrivs med kommatecken (,)");
+                }
+            }
+            else
+            {
+                Category selectedcategory = (Category)cbxNewCategory.SelectedItem;
+                int category_id = selectedcategory.Id;
+                Area area = (Area)cbxLocation.SelectedItem;
+                int geolocation_id = AddGeolocation(area.Id);
+                double value;
+                if (double.TryParse(txtNewMeasurement.Text, out value))
+                {
+                    AddMeasurement(selectedobserver.Id, geolocation_id, value, category_id);
+                    UpdateUI();
+                }
+                else
+                {
+                    MessageBox.Show("Inmatningen ska vara ett heltal eller decimaltal. Tänk på att decimaltal skrivs med kommatecken (,)");
                 }
             }
         }
@@ -93,22 +85,29 @@ namespace ClimateObservations
             cbxLocation.ItemsSource = null;
             cbxLocation.ItemsSource = GetAreas();
         }
-        public void ChangeObservation()
-        {
-
-        }
         public void UpdateUI()
         {
+            lblCurrValue.Visibility = Visibility.Hidden;
+            lblCurrValueTxt.Visibility = Visibility.Hidden;
+            lblNewValueTxt.Visibility = Visibility.Hidden;
+            txtNewValue.Visibility = Visibility.Hidden;
+            lblMsrmtTxt.Visibility = Visibility.Hidden;
+            lblDateTxt.Visibility = Visibility.Hidden;
+            lblAreaTxt.Visibility = Visibility.Hidden;
+            cbxMeasurements.Visibility = Visibility.Hidden;
+            btnShowMsrmt.Visibility = Visibility.Hidden;
+            txtNewValue.Text = "";
             cbxNewCategory.SelectedIndex = 0;
             cbxSubCategory.SelectedIndex = 0;
             cbxLocation.SelectedIndex = 0;
-        }
-        private void BtnUpdateObservationsView_Click(object sender, RoutedEventArgs e)
-        {
             lbxObservations.ItemsSource = null;
             lbxObservations.ItemsSource = GetObservationsWithDetails(selectedobserver.Id);
             lblLastUpdated.Content = null;
             lblLastUpdated.Content = $"Senast uppdaterad {DateTime.Now}";
+        }
+        private void BtnUpdateObservationsView_Click(object sender, RoutedEventArgs e)
+        {
+        UpdateUI();
         }
         private void BtnBack_Click(object sender, RoutedEventArgs e)
         {
@@ -127,15 +126,15 @@ namespace ClimateObservations
         }
         private void BtnShowMsrmt_Click(object sender, RoutedEventArgs e)
         {
-            if (cbxMeasurements.SelectedIndex != -1)
+            if (cbxMeasurements.SelectedIndex != -1 && selectedobservation != null)
             {
                 lblCurrValue.Visibility = Visibility.Visible;
                 lblCurrValueTxt.Visibility = Visibility.Visible;
                 lblNewValueTxt.Visibility = Visibility.Visible;
-                lblNewValue.Visibility = Visibility.Visible;
-
-                Observation observation = (Observation)lbxObservations.Items[lbxObservations.SelectedIndex];
-                lblCurrValue.Content = observation.Measurements[0].Value;
+                txtNewValue.Visibility = Visibility.Visible;
+                int i = cbxMeasurements.SelectedIndex;
+                selectedmeasurement = selectedobservation.Measurements[i];
+                lblCurrValue.Content = selectedmeasurement.Value;
             }
         }
         private void BtnUpdateObservation_Click(object sender, RoutedEventArgs e)
@@ -147,11 +146,10 @@ namespace ClimateObservations
                 lblAreaTxt.Visibility = Visibility.Visible;
                 cbxMeasurements.Visibility = Visibility.Visible;
                 btnShowMsrmt.Visibility = Visibility.Visible;
-
-                Observation observation = (Observation)lbxObservations.Items[lbxObservations.SelectedIndex];
-                lblDate.Content = observation.Date;
-                lblArea.Content = observation.Areas[0].Name;
-                cbxMeasurements.ItemsSource = observation.Categories;
+                selectedobservation = (Observation)lbxObservations.Items[lbxObservations.SelectedIndex];
+                lblDate.Content = selectedobservation.Date;
+                lblArea.Content = selectedobservation.Areas[0].Name;
+                cbxMeasurements.ItemsSource = selectedobservation.Categories;
             }
             else
             {
@@ -160,7 +158,19 @@ namespace ClimateObservations
         }
         private void BtnSaveObservationUpdate_Click(object sender, RoutedEventArgs e)
         {
-            string textBoxValue = lblNewValue.Text;
+            string measurementValue = txtNewValue.Text;
+            double value;
+            if (double.TryParse(measurementValue, out value))
+            {
+                int id = selectedmeasurement.Id;
+                UpdateObservation(id, value);
+                MessageBox.Show($"Mätpunken lyckades ändras till {value}!");
+                UpdateUI();
+            }
+            else
+            {
+                MessageBox.Show("Fyll i ett heltal eller ett decimaltal. Tänk på att decimaltal skrivs med ett kommatecken (,)");
+            }
         }
 
     }
